@@ -1,0 +1,168 @@
+
+
+<!-- HTML -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Netflix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.2.4/video-js.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/7.2.4/video.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+<div>    
+    <div id="NAME"  style="display:none"></div> 
+    <div id="RNAME"  style="display:none"></div> 
+	<div id="NBRTYPE"  style="display:none"></div>    
+    <div id="PATH"  style="display:none"></div> 
+    <div id="EXT"  style="display:none"></div>  
+
+
+    <div id="test2">TEST2</div> </br>
+    <select name="ThisOne" id ="ThisOne">
+        <option value ="22／7" >22／7</option >
+        <option value ="91 Days" >91 Days</option >
+        <option value ="ACCA13 區監察課" >ACCA13 區監察課</option >
+        <option value ="Anima Yell!" >Anima Yell!</option >
+        <option value ="BACCANO！大騷動！" >BACCANO！大騷動！</option >
+        <option value ="Beatless" >Beatless</option >
+        <option value ="Citrus" >Citrus</option >
+        <option value ="DECA - DENCE" selected>DECA - DENCE</option >
+     </select>
+    <button id="Gjson" type="button" >get</button>    
+	<video id="my-video" class="video-js vjs-big-play-centered"><video>
+</div>
+</body>
+</html>
+
+<!-- Javascript -->
+<script type="text/javascript">
+$(document).ready(function (){
+    $("#Gjson").click(function(){        
+        /* set no cache */
+        $.ajaxSetup({ cache: false });
+ 
+        $.getJSON("data.json", function(data){ 
+			var play_NAME = [];
+		    var play_RNAME = [];
+		    var play_NBRTYPE = [];
+			var play_PATH = [];
+			var play_EXT = [];
+			
+            /* loop through array */
+            $.each(data, function(index, d){            
+                let selectdANIME = document.getElementById('ThisOne').value;		  
+			     if(d.NAME == selectdANIME){
+				 play_NAME.push(d.NAME); 
+				 play_RNAME.push(d.RNAME); 
+				 play_NBRTYPE.push(d.NBRTYPE); 
+			     play_PATH.push(d.PATH); 
+			     play_EXT.push(d.EXT); 				 
+				 }		
+				 
+            });
+ 
+			 $("#NAME").text(play_NAME.join(''))
+			 $("#RNAME").text(play_RNAME.join(''))
+		     $("#NBRTYPE").text(play_NBRTYPE.join(''))
+			 $("#PATH").text(play_PATH.join(''))
+			 $("#EXT").text(play_EXT.join(''))
+			
+             
+            SRCTXTTHID=	document.getElementById("PATH").innerText +document.getElementById("RNAME").innerText+document.getElementById("NBRTYPE").innerText+document.getElementById("EXT").innerText
+          
+            playthis();
+
+
+        }).error(function(jqXHR, textStatus, errorThrown){ /* assign handler */
+            /* alert(jqXHR.responseText) */
+            alert("error occurred!");
+        });
+    });
+
+
+
+
+$.ajaxSetup({ cache: false });
+ 
+ $.getJSON("data.json", function(data){ 
+     var play_NAME = [];
+     var play_RNAME = [];
+     var play_NBRTYPE = [];
+     var play_PATH = [];
+     var play_EXT = [];
+     
+     /* loop through array */
+     $.each(data, function(index, d){            
+
+ 
+          if(d.NAME =="DECA - DENCE"){
+          play_NAME.push(d.NAME); 
+          play_RNAME.push(d.RNAME); 
+          play_NBRTYPE.push(d.NBRTYPE); 
+          play_PATH.push(d.PATH); 
+          play_EXT.push(d.EXT); 				 
+          }		
+          
+     });
+
+      $("#NAME").text(play_NAME.join(''))
+      $("#RNAME").text(play_RNAME.join(''))
+      $("#NBRTYPE").text(play_NBRTYPE.join(''))
+      $("#PATH").text(play_PATH.join(''))
+      $("#EXT").text(play_EXT.join(''))
+     ch();
+     
+ }).error(function(jqXHR, textStatus, errorThrown){ /* assign handler */
+     /* alert(jqXHR.responseText) */
+     alert("error occurred!");
+ });
+
+
+
+
+
+});
+let SRCTXT =  document.getElementById('test2').innerText;
+let SRCTXTTHID = ""
+
+const player = videojs('my-video',{
+    sources:[{ src :SRCTXT}],
+    loop:false,
+    muted:false,
+    width:"600",
+    height:"300",
+    controls:true	
+});
+
+function ch(){ 
+
+SRCTXT =	document.getElementById("PATH").innerText +document.getElementById("RNAME").innerText+document.getElementById("NBRTYPE").innerText+document.getElementById("EXT").innerText
+document.getElementById('test2').innerText=SRCTXT;
+
+    player.src({type: "video/mp4", src: SRCTXT });
+}
+
+function playthis(){
+    document.getElementById('test2').innerText=document.getElementById("NAME").innerText;
+    player.src({type: "video/mp4", src: SRCTXTTHID });
+}
+
+
+
+let strNAME = document.getElementById("NAME").innerText;
+let strRNAME =document.getElementById("RNAME").innerText;
+let strNBRTYPE = document.getElementById("NBRTYPE").innerText;
+let strPATH = document.getElementById("PATH").innerText;
+let strEXT = document.getElementById("EXT").innerText;
+
+
+
+
+
+var video = document.getElementById("my-video");
+
+
+</script>
